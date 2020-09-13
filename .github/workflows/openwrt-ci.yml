@@ -55,6 +55,12 @@ jobs:
           # ln -s /mnt/openwrt/feeds ./feeds
           # ln -s /mnt/openwrt/staging_dir ./staging_dir
           df -h
+      - name: 涡轮增雕进程
+        run: |
+          cd package
+          mkdir openwrt-packages
+          cd openwrt-packages
+          git clone https://github.com/jerrykuku/luci-theme-argon.git
       - name: Update feeds
         run: |
           ./scripts/feeds update -a
@@ -73,6 +79,8 @@ jobs:
           CONFIG_TARGET_IMAGES_GZIP=y
           CONFIG_KERNEL_BUILD_USER="OpenWrt-CI"
           CONFIG_KERNEL_BUILD_DOMAIN="Azure"
+          CONFIG_PACKAGE_luci-theme-argon=y
+          CONFIG_LUCI_LANG_zh-cn=y
           EOF
           #
           # ===============================================================
